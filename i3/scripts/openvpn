@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ -d "/proc/sys/net/ipv4/conf/tun0" ]; then
+  # Control will enter here if $DIRECTORY exists.
+  echo ""
+  echo ""
+  echo "#00ff00"
+fi
+if [ ! -d "/proc/sys/net/ipv4/conf/tun0" ]; then
+  # Control will enter here if $DIRECTORY doesn't exist.
+  echo ""
+  echo ""
+  echo "#FF0000"
+fi
+#[[ -z $result ]] && echo '' || echo ""
