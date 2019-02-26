@@ -3,12 +3,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+" first :AutoSaveToggle
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
 " Change cursor shape in different modes http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
 set pyxversion=3
+set autowriteall
 let g:powerline_pycmd='py3'
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
@@ -21,7 +26,6 @@ Plug 'KabbAmine/zeavim.vim', {'on': [
 			\	'<Plug>ZVMotion'
 			\ ]}
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'Valloric/YouCompleteMe'
 
 if has('nvim')
@@ -32,20 +36,25 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'fishbullet/deoplete-ruby'
 endif
-
-
-Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-haml'
+" gcc gc commentary
+Plug 'tpope/vim-commentary'
+"
+Plug 'ap/vim-buftabline'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'majutsushi/tagbar'
+Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'kien/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
-Plug 'tpope/vim-haml'
 Plug 'thoughtbot/vim-rspec'
 "Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
@@ -84,7 +93,13 @@ let g:deoplete#enable_at_startup = 1
 let g:cssColorVimDoNotMessMyUpdatetime = 1
 " keymappings
 
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
+nnoremap <C-W> :bdelete<CR>
+
+nmap <F8> :TagbarToggle<CR>
+
+" map <C-n> :NERDTreeToggle<CR>
 map <Leader> <Plug>(easymotion-prefix)
 
 map <silent> <C-h> :call WinMove('h')<CR>
@@ -207,10 +222,10 @@ set title
 " Show the (partial) command as it’s being typed
 set showcmd
 " Use relative line numbers
-"if exists("&relativenumber")
-"	set relativenumber
-"	au BufReadPost * set relativenumber
-"endif
+if exists("&relativenumber")
+	set relativenumber
+	au BufReadPost * set relativenumber
+endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
@@ -259,3 +274,6 @@ nmap <silent> // :nohlsearch<CR>
 nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
+
+" AutoSave
+let g:auto_save = 1  " enable AutoSave on Vim startup
