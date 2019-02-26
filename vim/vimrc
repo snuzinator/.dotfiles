@@ -47,7 +47,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-haml'
 Plug 'thoughtbot/vim-rspec'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 Plug 'othree/html5.vim'
 Plug 'skammer/vim-css-color'
 Plug 'lilydjwg/colorizer'
@@ -74,6 +75,7 @@ Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 "search fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plug 'junegunn/fzf.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -123,8 +125,6 @@ set nocompatible
 set clipboard=unnamed
 " Enhance command-line completion
 set wildmenu
-" Allow cursor keys in insert mode
-set esckeys
 " Allow backspace in insert mode
 set backspace=indent,eol,start
 " Optimize for fast terminal connections
