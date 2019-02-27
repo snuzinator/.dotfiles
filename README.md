@@ -3,7 +3,7 @@
 
 ### Clone repo to `~/.dotfiles` holder:
 
-`````
+
 ```console
 $ cd ~
 $ git clone https://github.com/snuzinator/.dotfiles.git ~/.dotfiles
