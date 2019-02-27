@@ -4,7 +4,8 @@
 #clickable_url = true
 #dynamic_title = true
 #font = Monospace 9
-font = hack 12
+#font = hack 12
+font = Hack Nerd Font 12
 #font = SauceCodePro Nerd Font Mono:h16
 #font = Sauce Code Nerd Font 12
 #fullscreen = true
