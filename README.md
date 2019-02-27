@@ -41,31 +41,30 @@ Open Tmux sessions and press `Ctrl+I` for install plugins
 ### i3
 
 ```console
-  $ ln -s ~/.dotfiles/i3/ ~/.config/
+$ ln -s ~/.dotfiles/i3/ ~/.config/
 ```
 
 ### i3 notebook
 ```console
-  $ ln -s ~/.dotfiles/i3_notebook/ ~/.config/i3
+$ ln -s ~/.dotfiles/i3_notebook/ ~/.config/i3
 ```
 
 ### vim
 
 ```console
-  $ ln -s ~/.dotfiles/vim ~/.vim
-  $ ln -s ~/.dotfiles/vim/vimrc ~/.vimrc
-  $ ln -s ~/.dotfiles/vim/gvimrc ~/.gvimrc
+$ ln -s ~/.dotfiles/vim ~/.vim
+$ ln -s ~/.dotfiles/vim/vimrc ~/.vimrc
+$ ln -s ~/.dotfiles/vim/gvimrc ~/.gvimrc
 ```
 
 ### nvim
 
   
 ```console
-  $ ln -s ~/.dotfiles/vim/nvim  ~/.config/nvim
+$ ln -s ~/.dotfiles/vim/nvim  ~/.config/nvim
 ```
 ### termite
 
 ```console
-  $ ln -s ~/.dotfiles/termite ~/.config/termite
-
+$ ln -s ~/.dotfiles/termite ~/.config/termite
 ```
