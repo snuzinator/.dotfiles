@@ -98,6 +98,7 @@ fetch_repo () {
 }
 
 # }}}
+
 # usage {{{
 usage (){
   echo "add key: (example ./bash --pc)"
@@ -121,6 +122,7 @@ success() {
 info() {
   msg "${Blue}[➭]${Color_off} ${1}${2}"
 }
+# }}}
 
 # echo_with_color {{{
 echo_with_color () {
@@ -167,6 +169,81 @@ install_vim (){
 }
 # }}}
 
+# uninstall_vim {{{
+uninstall_vim () {
+  if [[ -d "$HOME/.vim" ]]; then
+    if [[ "$(readlink $HOME/.vim)" =~ .dotfiles ]]; then
+      rm "$HOME/.vim"
+      success "Uninstall dotfile folder vim"
+      if [[ -d "$HOME/.vim_back" ]]; then
+        mv "$HOME/.vim_back" "$HOME/.vim"
+        success "Recover from $HOME/.vim_back"
+      fi
+    fi
+  fi
+  if [[ -f "$HOME/.vimrc_back" ]]; then
+    mv "$HOME/.vimrc_back" "$HOME/.vimrc"
+    success "Recover from $HOME/.vimrc_back"
+  fi
+}
+# }}}
+
+# install_git {{{
+install_git () {
+  if [[ -f "$HOME/.gitconfig" ]]; then
+    mv "$HOME/.gitconfig" "$HOME/.gitconfig_back"
+    success "Backup $HOME/.gitconfig to $HOME/.gitconfig_back"
+    ln -s "$HOME/.dotfiles/git/gitconfig" "$HOME/.gitconfig"
+  else
+    ln -s "$HOME/.dotfiles/git/gitconfig" "$HOME/.gitconfig"
+    success "Installed dotfile for gitconfig"
+  fi
+  if [[ -f "$HOME/.gitignore_global" ]]; then
+    mv "$HOME/.gitignore_global" "$HOME/.gitignore_global_back"
+    success "Backup $HOME/.gitignore_global to $HOME/.gitignore_global_back"
+    ln -s "$HOME/.dotfiles/git/gitignore_global" "$HOME/.gitignore_global"
+  else
+    ln -s "$HOME/.dotfiles/git/gitignore_global" "$HOME/.gitignore_global"
+    success "Installed dotfile for gitignore_global"
+  fi
+  if [[ -d "$HOME/.git_template" ]]; then
+    if [[ "$(readlink $HOME/.git_template)" =~ dotfiles ]]; then
+      success "Link $HOME/.git_template Already installed for git"
+    else
+      mv "$HOME/.git_template" "$HOME/.git_template_back"
+      success "Backup $HOME/.git_template to $HOME/.git_template_back"
+      ln -s "$HOME/.dotfiles/git/git_template" "$HOME/.git_template"
+    fi
+  else
+    ln -s "$HOME/.dotfiles/git/git_template" "$HOME/.git_template"
+    success "Installed dotfile for git_template"
+  fi
+}
+#}}}
+
+# uninstall_git {{{
+uninstall_git (){
+  if [[ -d "$HOME/.git_template" ]]; then
+    if [[ "$(readlink $HOME/.git_template)" =~ dotfiles ]]; then
+      rm "$HOME/.git_template"
+      success "Uninstall dotfile git_template"
+      if [[ -d "$HOME/.git_template_back" ]]; then
+        mv "$HOME/.git_template_back" "$HOME/.git_template"
+        success "Recover from $HOME/.git_template_back"
+      fi
+    fi
+  fi
+  if [[ -f "$HOME/.gitconfig_back" ]]; then
+    mv "$HOME/.gitconfig_back" "$HOME/.gitconfig"
+    success "Recover from $HOME/.gitconfig_back"
+  fi
+  if [[ -f "$HOME/.gitignore_global_back" ]]; then
+    mv "$HOME/.gitignore_global_back" "$HOME/.gitignore_global"
+    success "Recover from $HOME/.gitignore_global_back"
+  fi
+}
+#}}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
@@ -174,15 +251,22 @@ fi
 if [[ $1 == "--pc" ]]; then
   echo "install PC"
   echo ""
-  # код выполнения
   fetch_repo
   install_vim
+  install_git
   install_done
 elif [[ $1 == "--notebook" ]]; then
   echo "install Notebook"
   echo ""
   fetch_repo
   install_vim
+  install_git
   install_done
-  # код выполнения
+elif [[ $1 == "--uninstall" ]]; then
+  echo ""
+  echo "uninstalling..."
+  uninstall_vim
+  uninstall_git
+else
+  usage
 fi
