@@ -6,4 +6,5 @@ vim/autoload/
 vim/tmp
 vim/.base16
 vim/.base16.previous
+tmux/plugins
 .idea/*
