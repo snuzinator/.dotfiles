@@ -87,7 +87,7 @@ fetch_repo () {
   if [[ -d "$HOME/.dotfiles" ]]; then
     info "Trying to update dotfiles"
     cd "$HOME/.dotfiles"
-    git pull
+    git pull https://github.com/snuzinator/.dotfiles.git master
     cd - > /dev/null 2>&1
     success "Successfully update dotfiles"
   else
@@ -244,6 +244,45 @@ uninstall_git (){
 }
 #}}}
 
+# install_tmux {{{
+install_tmux (){
+  if [[ -f "$HOME/.tmux.conf" ]]; then
+    mv "$HOME/.tmux.conf" "$HOME/.tmux.conf_back"
+    success "Buckup $HOME/.tmux.conf to $HOME/.tmux.conf_back"
+    ln -s "$HOME/.dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
+  else
+    ln -s "$HOME/.dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
+    success "Installed dotfile for tmux.conf"
+  fi
+  if [[ -d "$HOME/.tmux" ]]; then
+    if [[ "$(readlink $HOME/.tmux)" =~ dotfiles ]]; then
+      success "Link $HOME/.tmux Already installed for tmux"
+    else
+      mv "$HOME/.tmux" "$HOME/.tmux_back"
+      success "Backup $HOME/.tmux to $HOME/.tmux_back"
+      ln -s "$HOME/.dotfiles/tmux" "$HOME/.tmux"
+    fi
+  else
+    ln -s "$HOME/.dotfiles/tmux" "$HOME/.tmux"
+    success "Installed folder for tmux"
+  fi
+  if [[ -d "$HOME/.tmux/plugins/tpm" ]]; then
+    if [[ -f "$HOME/.tmux/plugins/tpm/tpm" ]]; then
+      info "Trying to update tpm"
+      cd "$HOME/.tmux/plugins/tpm"
+      git pull
+      cd - > /dev/null 2>&1
+      success "Successfully update tpm"
+    fi
+  else
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+    success "Tmux Plugin Manager"
+    info "Open Tmux sessions and press `Ctrl+I` for install plugins"
+  fi
+}
+
+#}}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
@@ -254,6 +293,7 @@ if [[ $1 == "--pc" ]]; then
   fetch_repo
   install_vim
   install_git
+  install_tmux
   install_done
 elif [[ $1 == "--notebook" ]]; then
   echo "install Notebook"
@@ -261,6 +301,7 @@ elif [[ $1 == "--notebook" ]]; then
   fetch_repo
   install_vim
   install_git
+  install_tmux
   install_done
 elif [[ $1 == "--uninstall" ]]; then
   echo ""
