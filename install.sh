@@ -283,6 +283,25 @@ install_tmux (){
 
 #}}}
 
+# uninstall_tmux{{{
+uninstall_tmux() {
+  if [[ -d "$HOME/.tmux" ]]; then
+    if [[ "$(readlink $HOME/.tmux)" =~ dotfiles ]]; then
+      rm "$HOME/.tmux"
+      success "Uninstall dotfolder tmux"
+      if [[ -d "$HOME/.tmux_back" ]]; then
+        mv "$HOME/.tmux_back" "$HOME/.tmux"
+        success "Recover folder from $HOME/.tmux_back"
+      fi
+    fi
+  fi
+  if [[ -f "$HOME/.tmux.conf_back" ]]; then
+    mv "$HOME/.tmux.conf_back" "$HOME/.tmux.conf"
+    success "Recover from $HOME/.tmux.conf_back"
+  fi
+}
+#}}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
@@ -308,6 +327,7 @@ elif [[ $1 == "--uninstall" ]]; then
   echo "uninstalling..."
   uninstall_vim
   uninstall_git
+  uninstall_tmux
 else
   usage
 fi
