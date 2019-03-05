@@ -7,4 +7,5 @@ vim/tmp
 vim/.base16
 vim/.base16.previous
 tmux/plugins
+tmux/resurrect
 .idea/*
