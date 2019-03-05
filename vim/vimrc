@@ -18,7 +18,6 @@ endif
 
 set foldmethod=marker
 set foldmarker={{{,}}}
-set pyxversion=3
 set autowriteall
 let g:powerline_pycmd='py3'
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
