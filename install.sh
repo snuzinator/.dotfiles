@@ -302,6 +302,24 @@ uninstall_tmux() {
 }
 #}}}
 
+# install_termite {{{
+install_termite () {
+  if [[ -d "$HOME/.config/termite" ]]; then
+    if [[ "$(readlink $HOME/.config/termite)" =~ dotfiles ]]; then
+      success "Link $HOME/.config/termite Already installed for termite"
+    else
+      mv "$HOME/.config/termite" "$HOME/.config/termite_back"
+      success "Backup $HOME/.config/termite to $HOME/.config/termite_back"
+      ln -s "$HOME/.dotfiles/termite" "$HOME/.config/termite"
+      success "Installed folder for termite"
+    fi
+  else
+    ln -s "$HOME/.dotfiles/termite" "$HOME/.config/termite"
+    success "Installed folder for termite"
+  fi
+}
+#}}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
@@ -313,6 +331,7 @@ if [[ $1 == "--pc" ]]; then
   install_vim
   install_git
   install_tmux
+  install_termite
   install_done
 elif [[ $1 == "--notebook" ]]; then
   echo "install Notebook"
@@ -321,6 +340,7 @@ elif [[ $1 == "--notebook" ]]; then
   install_vim
   install_git
   install_tmux
+  install_termite
   install_done
 elif [[ $1 == "--uninstall" ]]; then
   echo ""
