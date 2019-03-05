@@ -294,6 +294,11 @@ uninstall_tmux() {
         success "Recover folder from $HOME/.tmux_back"
       fi
     fi
+  else
+    if [[ -d "$HOME/.tmux_back" ]]; then
+      mv "$HOME/.tmux_back" "$HOME/.tmux"
+      success "Recover folder from $HOME/.tmux_back"
+    fi
   fi
   if [[ -f "$HOME/.tmux.conf_back" ]]; then
     mv "$HOME/.tmux.conf_back" "$HOME/.tmux.conf"
@@ -316,6 +321,26 @@ install_termite () {
   else
     ln -s "$HOME/.dotfiles/termite" "$HOME/.config/termite"
     success "Installed folder for termite"
+  fi
+}
+#}}}
+
+# uninstall_termite{{{
+uninstall_termite () {
+  if [[ -d "$HOME/.config/termite" ]]; then
+    if [[ "$(readlink $HOME/.config/termite)" =~ dotfiles ]]; then
+      rm "$HOME/.config/termite"
+      success "Uninstall dotfolder termite"
+      if [[ -d "$HOME/.config/termite_back" ]]; then
+        mv "$HOME/.config/termite_back" "$HOME/.config/termite"
+        success "Recover folder from $HOME/.config/termite_back"
+      fi
+    fi
+  else
+    if [[ -d "$HOME/.config/termite_back" ]]; then
+      mv "$HOME/.config/termite_back" "$HOME/.config/termite"
+      success "Recover folder from $HOME/.config/termite_back"
+    fi
   fi
 }
 #}}}
@@ -348,6 +373,7 @@ elif [[ $1 == "--uninstall" ]]; then
   uninstall_vim
   uninstall_git
   uninstall_tmux
+  uninstall_termite
 else
   usage
 fi
