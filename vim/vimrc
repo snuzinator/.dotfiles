@@ -99,7 +99,7 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 " keymappings
 
 nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
+" nnoremap <C-P> :bprev<CR>
 nnoremap <C-W> :bdelete<CR>
 
 nmap <F8> :TagbarToggle<CR>
