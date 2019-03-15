@@ -345,6 +345,24 @@ uninstall_termite () {
 }
 #}}}
 
+# install_i3config {{{
+
+if [[ -d "$HOME/.config/i3" ]]; then
+  if [[ "$(readlink $HOME/.config/i3)" =~ dotfiles ]]; then
+    success "Link $HOME/.config/i3 Already Installed for i3"
+  else
+    mv "$HOME/.config/i3" "$HOME/.config/i3_backup"
+    success "Backup $HOME/.config/i3 to $HOME/.config/i3_backup"
+    ln -s "$HOME/.dotfiles/i3" "$HOME/.config/i3"
+    success "Installed folder for termite"
+  fi
+else
+    ln -s "$HOME/.dotfiles/i3" "$HOME/.config/i3"
+    success "Installed folder for termite"
+fi
+
+#}}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
