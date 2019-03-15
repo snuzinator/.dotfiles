@@ -354,11 +354,11 @@ install_i3config () {
       mv "$HOME/.config/i3" "$HOME/.config/i3_back"
       success "Backup $HOME/.config/i3 to $HOME/.config/i3_back"
       ln -s "$HOME/.dotfiles/i3" "$HOME/.config/i3"
-      success "Installed folder for termite"
+      success "Installed folder for i3"
     fi
   else
       ln -s "$HOME/.dotfiles/i3" "$HOME/.config/i3"
-      success "Installed folder for termite"
+      success "Installed folder for i3"
   fi
 }
 
@@ -384,6 +384,24 @@ uninstall_i3config () {
 }
 # }}}
 
+# install_i3config_notebook {{{
+install_i3config_notebook () {
+  if [[ -d "$HOME/.config/i3" ]]; then
+    if [[ "$(readlink $HOME/.config/i3)" =~ dotfiles ]]; then
+      success "Link $HOME/.config/i3 Already Installed for i3"
+    else
+      mv "$HOME/.config/i3" "$HOME/.config/i3_back"
+      success "Backup $HOME/.config/i3 to $HOME/.config/i3_back"
+      ln -s "$HOME/.dotfiles/i3_notebook" "$HOME/.config/i3"
+      success "Installed folder for i3"
+    fi
+  else
+      ln -s "$HOME/.dotfiles/i3_notebook" "$HOME/.config/i3"
+      success "Installed folder for i3"
+  fi
+}
+#}}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
@@ -396,8 +414,8 @@ if [[ $1 == "--pc" ]]; then
   install_git
   install_tmux
   install_termite
-  install_done
   install_i3config
+  install_done
 elif [[ $1 == "--notebook" ]]; then
   echo "install Notebook"
   echo ""
@@ -406,6 +424,7 @@ elif [[ $1 == "--notebook" ]]; then
   install_git
   install_tmux
   install_termite
+  install_i3config_notebook
   install_done
 elif [[ $1 == "--uninstall" ]]; then
   echo ""
