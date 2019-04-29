@@ -151,6 +151,8 @@ assign [class="Kodi"] $ws5
 assign [class="Steam"] $ws5
 # 6:Torrents
 assign [class="qBittorrent"] $ws6
+# 7: postman api
+assign [class="Postman"] $ws7
 # 10: Music
 
 
