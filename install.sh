@@ -277,7 +277,7 @@ install_tmux (){
   else
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
     success "Tmux Plugin Manager"
-    info "Open Tmux sessions and press `Ctrl+I` for install plugins"
+    info "Open Tmux sessions and press Ctrl+I for install plugins"
   fi
 }
 
