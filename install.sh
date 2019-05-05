@@ -402,6 +402,44 @@ install_i3config_notebook () {
 }
 #}}}
 
+# install_nvim {{{
+install_nvim () {
+  if [[ -d "$HOME/.config/nvim" ]]; then
+    if [[ "$(readlink $HOME/.config/nvim)" =~ dotfiles ]]; then
+      success "Link $HOME/.config/nvim Already Installed for nvim"
+    else
+      mv "$HOME/.config/nvim" "$HOME/.config/nvim_back"
+      success "Backup $HOME/.config/nvim to $HOME/.config/nvim_back"
+      ln -s "$HOME/.dotfiles/vim/nvim" "$HOME/.config/nvim"
+      success "Installed folder for nvim"
+    fi
+  else
+      ln -s "$HOME/.dotfiles/vim/nvim" "$HOME/.config/nvim"
+      success "Installed folder for nvim"
+  fi
+}
+#}}}
+
+# uninstall_nvim {{{
+uninstall_nvim () {
+  if [[ -d "$HOME/.config/nvim" ]]; then
+    if [[ "$(readlink $HOME/.config/nvim)" =~ dotfiles ]]; then
+      rm "$HOME/.config/nvim"
+      success "Uninstall dotfolder nvim config"
+      if [[ -d "$HOME/.config/nvim_back" ]]; then
+        mv "$HOME/.config/nvim_back" "$HOME/.config/nvim"
+        success "Recover folder from $HOME/.config/nvim_back"
+      fi
+    fi
+  else
+    if [[ -d "$HOME/.config/nvim_back" ]]; then
+      mv "$HOME/.config/nvim_back" "$HOME/.config/nvim"
+      success "Recover folder from $HOME/.config/nvim_back"
+    fi
+  fi
+}
+# }}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
@@ -415,6 +453,7 @@ if [[ $1 == "--pc" ]]; then
   install_tmux
   install_termite
   install_i3config
+  install_nvim
   install_done
 elif [[ $1 == "--notebook" ]]; then
   echo "install Notebook"
@@ -425,6 +464,7 @@ elif [[ $1 == "--notebook" ]]; then
   install_tmux
   install_termite
   install_i3config_notebook
+  install_nvim
   install_done
 elif [[ $1 == "--uninstall" ]]; then
   echo ""
@@ -434,6 +474,7 @@ elif [[ $1 == "--uninstall" ]]; then
   uninstall_tmux
   uninstall_termite
   uninstall_i3config
+  uninstall_nvim
 else
   usage
 fi
