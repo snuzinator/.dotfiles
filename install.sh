@@ -440,6 +440,24 @@ uninstall_nvim () {
 }
 # }}}
 
+# install_zsh{{{
+install_zsh (){
+  if [[ -f "$HOME/.zshrc" ]]; then
+    if [[ "$(readlink $HOME/.zshrc)" =~ dotfiles ]]; then
+      success "Link $HOME/.zshrc Already Installed for zshrc"
+    else
+      mv "$HOME/.zshrc" "$HOME/.zshrc_back"
+      success "Backup $HOME/.zshrc to $HOME/.zshrc_back"
+      ln -s "$HOME/.dotfiles/zsh/zshrc" "$HOME/.zshrc"
+      success "Installed file for zshrc"
+    fi
+  else
+    ln -s "$HOME/.dotfiles/zsh/zshrc" "$HOME/.zshrc"
+    success "Installed file for zshrc"
+  fi
+}
+#}}}
+
 if [[ $1 = "" || $1 = "--help" ]]; then
   usage
 fi
