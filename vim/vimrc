@@ -103,6 +103,7 @@ Plug 'Erichain/vim-monokai-pro'
 Plug 'jpo/vim-railscasts-theme'
 "Plug 'sickill/vim-monokai'
 Plug 'crusoexia/vim-monokai'
+Plug 'farmergreg/vim-lastplace'
 
 " Initialize plugin system
 call plug#end()
@@ -156,6 +157,8 @@ nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
 "}}}
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 " }}}
 "
 " options {{{
@@ -165,7 +168,10 @@ if has('vim')
 endif
 let g:deoplete#enable_at_startup = 1
 " }}}
-
+" lastplace {{{
+let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
+let g:lastplace_ignore_buftype = "quickfix,nofile,help"
+"}}}
 " zeal path {{{
 let g:zv_docsets_dir = '/home/snuz/.local/share/Zeal/Zeal/docsets/'
 " }}}
