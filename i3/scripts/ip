@@ -1,0 +1,10 @@
+#!/bin/sh
+INTERFEACE=eno1
+
+IP_ADDRESS=$(ip address show eno1 | grep -w inet | awk '{ print $2 }')
+
+if [[ "${IP_ADDRESS}" != "" ]]; then
+  echo "${IP_ADDRESS}"
+ #echo "${IP_ADDRESS}"
+  echo 
+fi
