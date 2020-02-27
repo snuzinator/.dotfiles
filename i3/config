@@ -138,9 +138,9 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 #assign [class="Terminator"] $ws1
 
 # 2: Firefox browser
-assign [class="Firefox"] $ws2
+assign [class="firefox"] $ws2
 # 3: IDE
-assign [class="Code - OSS"] $ws3
+assign [class="code-oss"] $ws3
 assign [class="jetbrains-rubymine"] $ws3
 # 4: Social
 assign [class="discord"] $ws4
