@@ -9,3 +9,13 @@ vim/.base16.previous
 tmux/plugins
 tmux/resurrect
 .idea/*
+
+bin/
+
+dev/
+
+docs/
+
+mpd\.conf
+
+i3/scripts/band2
